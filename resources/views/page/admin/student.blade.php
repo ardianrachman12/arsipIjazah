@@ -1,14 +1,14 @@
 @extends('layout.app')
-@section('title', 'Student')
+@section('title', 'Alumni')
 @section('content')
     <div class="container-fluid">
         <div class="card">
             <div class="p-4 d-flex justify-content-between align-items-center">
-                <h3 class="card-title">Daftar Siswa</h3>
+                <h3 class="card-title">Daftar Alumni</h3>
                 <div class="d-flex">
                     <a href="{{ route('students.export.excel') }}" class="btn btn-success btn-sm mr-2">Export Excel</a>
                     <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#createUserModal">+ Tambah
-                        Siswa</button>
+                        Alumni</button>
                 </div>
             </div>
             <div class="card-body overflow-auto">
@@ -69,7 +69,7 @@
                                                 @method('PUT')
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title">Detail Siswa</h5>
+                                                        <h5 class="modal-title">Detail Alumni</h5>
                                                         <button type="button" class="close"
                                                             data-dismiss="modal">&times;</button>
                                                     </div>
@@ -159,9 +159,9 @@
                                                                         Foto saat ini:
                                                                         <a href="{{ asset($student->foto) }}"
                                                                             data-lightbox="student-foto-{{ $student->id }}"
-                                                                            data-title="Foto Siswa">
+                                                                            data-title="Foto Alumni">
                                                                             <img src="{{ asset($student->foto) }}"
-                                                                                alt="Foto Siswa" width="80"
+                                                                                alt="Foto Alumni" width="80"
                                                                                 height="80"
                                                                                 style="object-fit: cover; border: 1px solid #ddd; border-radius: 5px;">
                                                                         </a>
@@ -196,7 +196,7 @@
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Tambah Siswa</h5>
+                        <h5 class="modal-title">Tambah Alumni</h5>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">

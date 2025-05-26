@@ -34,7 +34,7 @@
                 <span class="info-box-icon bg-warning"><i class="fas fa-graduation-cap"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">Student</span>
+                    <span class="info-box-text">Alumni</span>
                     <span class="info-box-number">{{ $student }}</span>
                 </div>
                 <!-- /.info-box-content -->
@@ -59,7 +59,7 @@
                 <span class="info-box-icon bg-info"><i class="fas fa-university"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">Program Studi</span>
+                    <span class="info-box-text">Jurusan</span>
                     <span class="info-box-number">{{ $prodi }}</span>
                 </div>
                 <!-- /.info-box-content -->
@@ -83,7 +83,7 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Statistik Siswa per Program Studi</h3>
+                    <h3 class="card-title">Statistik Alumni per Jurusan</h3>
                 </div>
                 <div class="card-body">
                     <canvas id="jurusanChart" style="max-height: 300px; width: 100%;"></canvas>
@@ -163,7 +163,7 @@
                     },
                     title: {
                         display: true,
-                        text: 'Jumlah Siswa per Jurusan',
+                        text: 'Jumlah Alumni per Jurusan',
                         font: {
                             size: 18
                         }

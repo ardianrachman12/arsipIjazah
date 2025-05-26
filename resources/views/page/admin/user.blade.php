@@ -1,12 +1,12 @@
 @extends('layout.app')
-@section('title', 'User')
+@section('title', 'Pengguna')
 @section('content')
     <div class="container-fluid">
         <div class="card">
             <div class="p-4 d-flex justify-content-between align-items-center">
-                <h3 class="card-title">Daftar User</h3>
+                <h3 class="card-title">Daftar Pengguna</h3>
                 <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#createUserModal">+ Tambah
-                    User</button>
+                    Pengguna</button>
             </div>
             <div class="card-body overflow-auto">
                 <table id="userTable" class="table table-bordered table-striped">
@@ -15,7 +15,8 @@
                             <th>No</th>
                             <th>Nama</th>
                             <th>Email</th>
-                            <th>Role</th>
+                            {{-- <th>Role</th> --}}
+                            <th>Tanggal Terdaftar</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -25,7 +26,8 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ $user->role }}</td>
+                                {{-- <td>{{ $user->role }}</td> --}}
+                                <td>{{ $user->created_at->format('d/m/Y') }}</td>
                                 <td>
                                     <button class="btn btn-warning btn-sm" data-toggle="modal"
                                         data-target="#editUserModal{{ $user->id }}">Edit</button>
@@ -63,7 +65,7 @@
                                                 @method('PUT')
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title">Edit User</h5>
+                                                        <h5 class="modal-title">Edit Pengguna</h5>
                                                         <button type="button" class="close"
                                                             data-dismiss="modal">&times;</button>
                                                     </div>
@@ -78,7 +80,7 @@
                                                             <input type="email" name="email" class="form-control"
                                                                 value="{{ $user->email }}" required>
                                                         </div>
-                                                        <div class="form-group">
+                                                        {{-- <div class="form-group">
                                                             <label>Role</label>
                                                             <select name="role" class="form-control">
                                                                 <option value="admin"
@@ -88,7 +90,7 @@
                                                                     {{ $user->role == 'user' ? 'selected' : '' }}>User
                                                                 </option>
                                                             </select>
-                                                        </div>
+                                                        </div> --}}
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="submit" class="btn btn-primary">Simpan</button>
@@ -116,7 +118,7 @@
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Tambah User</h5>
+                        <h5 class="modal-title">Tambah Pengguna</h5>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
@@ -128,13 +130,14 @@
                             <label>Email</label>
                             <input type="email" name="email" class="form-control" required>
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label>Role</label>
                             <select name="role" class="form-control">
                                 <option value="admin">Admin</option>
                                 <option value="user">User</option>
                             </select>
-                        </div>
+                        </div> --}}
+                        <input type="text" name="role" value="admin" hidden>
                         <div class="form-group">
                             <label>Password</label>
                             <input type="password" name="password" class="form-control" required>

@@ -1,19 +1,19 @@
 @extends('layout.app')
-@section('title', 'Program Studi')
+@section('title', 'Jurusan')
 @section('content')
     <div class="container-fluid">
         <div class="card">
             <div class="p-4 d-flex justify-content-between align-items-center">
-                <h3 class="card-title">Daftar Program Studi</h3>
+                <h3 class="card-title">Daftar Jurusan</h3>
                 <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#createProdiModal">+ Tambah
-                    Program Studi</button>
+                    Jurusan</button>
             </div>
             <div class="card-body overflow-auto">
                 <table id="userTable" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Nama Program Studi</th>
+                            <th>Nama Jurusan</th>
                             <th>Kode</th>
                             <th>Total Siswa</th>
                             <th>Aksi</th>
@@ -63,13 +63,13 @@
                                                 @method('PUT')
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title">Edit Program Studi</h5>
+                                                        <h5 class="modal-title">Edit Jurusan</h5>
                                                         <button type="button" class="close"
                                                             data-dismiss="modal">&times;</button>
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="form-group">
-                                                            <label>Nama Program Studi</label>
+                                                            <label>Nama Jurusan</label>
                                                             <input type="text" name="name" class="form-control"
                                                                 value="{{ $prodi->name }}" required>
                                                         </div>
@@ -109,16 +109,16 @@
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Tambah Program Studi</h5>
+                        <h5 class="modal-title">Tambah Jurusan</h5>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label>Nama Program Studi</label>
+                            <label>Nama Jurusan</label>
                             <input type="text" name="name" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label>Kode Program Studi</label>
+                            <label>Kode Jurusan</label>
                             <input type="text" name="kode_program_studi" class="form-control" required>
                         </div>
                         <div class="form-group">

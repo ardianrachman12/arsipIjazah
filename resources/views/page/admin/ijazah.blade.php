@@ -100,7 +100,7 @@
                                                         <div class="form-group">
                                                             <label>Siswa</label>
                                                             <select name="student_id" class="tom-select" required>
-                                                                <option value="">-- Pilih Siswa --</option>
+                                                                <option value="">-- Pilih Alumni --</option>
                                                                 @foreach ($students as $student)
                                                                     <option value="{{ $student->id }}"
                                                                         {{ $ijazah->student_id == $student->id ? 'selected' : '' }}>
@@ -121,7 +121,7 @@
                                                                 value="{{ $ijazah->nomor_seri }}">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label>Program Studi</label>
+                                                            <label>Jurusan</label>
                                                             <input disabled type="text" name="program_studi"
                                                                 class="form-control"
                                                                 value="{{ $ijazah->student->programstudi->name }}">
@@ -201,9 +201,9 @@
                     <div class="modal-body">
 
                         <div class="form-group">
-                            <label>Siswa</label>
+                            <label>Alumni</label>
                             <select name="student_id" class="tom-select" required>
-                                <option value="">Pilih Siswa</option>
+                                <option value="">Pilih Alumni</option>
                                 @foreach ($students as $student)
                                     <option value="{{ $student->id }}">{{ $student->nama_lengkap }}
                                         ({{ $student->nisn }})

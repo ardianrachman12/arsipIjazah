@@ -168,14 +168,14 @@
                             <a href="{{ route('users.index') }}"
                                 class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-user"></i>
-                                <p>Data User</p>
+                                <p>Data Pengguna</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('students.index') }}"
                                 class="nav-link {{ request()->routeIs('students.index') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-graduation-cap"></i>
-                                <p>Data Siswa</p>
+                                <p>Data Alumni</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -189,7 +189,7 @@
                             <a href="{{ route('program-studi.index') }}"
                                 class="nav-link {{ request()->routeIs('program-studi.*') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-university"></i>
-                                <p>Program Studi</p>
+                                <p>Jurusan</p>
                             </a>
                         </li>
                         <li class="nav-item">
