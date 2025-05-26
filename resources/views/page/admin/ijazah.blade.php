@@ -5,10 +5,13 @@
         <div class="card">
             <div class="p-4 d-flex justify-content-between align-items-center">
                 <h3 class="card-title">Daftar Ijazah</h3>
-                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#createIjazahModal">+ Tambah
-                    Ijazah</button>
+                <div class="d-flex">
+                    <a href="{{ route('ijazah.export.excel') }}" class="btn btn-success btn-sm mr-2">Export Excel</a>
+                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#createIjazahModal">+ Tambah
+                        Ijazah</button>
+                </div>
             </div>
-            <div class="card-body">
+            <div class="card-body overflow-auto">
                 <table id="userTable" class="table table-bordered table-striped">
                     <thead>
                         <tr>
@@ -18,6 +21,8 @@
                             <th>Nomor Seri</th>
                             <th>Program Studi</th>
                             <th>Verifikasi</th>
+                            <th>File</th>
+                            <th>Tanggal Terbit</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -37,9 +42,45 @@
                                     @endif
                                 </td>
                                 <td>
+                                    @if ($ijazah->file_ijazah)
+                                        <a href="{{ asset('/' . $ijazah->file_ijazah) }}" target="_blank">Lihat File Saat
+                                            Ini</a><br>
+                                    @else
+                                        <span class="text-muted">Tidak ada file</span>
+                                    @endif
+                                </td>
+                                <td>{{ date('d M Y', strtotime($ijazah->tanggal_terbit)) }}</td>
+                                <td>
                                     <!-- Tombol Edit -->
                                     <button class="btn btn-warning btn-sm" data-toggle="modal"
                                         data-target="#editIjazahModal{{ $ijazah->id }}">Edit</button>
+
+                                    <!-- Tombol Hapus -->
+                                    <form action="{{ route('ijazah.destroy', $ijazah->id) }}" method="POST"
+                                        class="d-inline" id="deleteForm{{ $ijazah->id }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="button" class="btn btn-danger btn-sm"
+                                            onclick="confirmDelete({{ $ijazah->id }})">Hapus</button>
+                                    </form>
+                                    <script>
+                                        function confirmDelete(ijazahId) {
+                                            Swal.fire({
+                                                title: 'Apakah Anda yakin?',
+                                                text: "Anda tidak dapat mengembalikan data yang sudah dihapus!",
+                                                icon: 'warning',
+                                                showCancelButton: true,
+                                                confirmButtonColor: '#d33',
+                                                cancelButtonColor: '#3085d6',
+                                                confirmButtonText: 'Ya, hapus!',
+                                                cancelButtonText: 'Batal'
+                                            }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    document.getElementById('deleteForm' + ijazahId).submit();
+                                                }
+                                            })
+                                        }
+                                    </script>
 
                                     <!-- Modal Edit Ijazah -->
                                     <div class="modal fade" id="editIjazahModal{{ $ijazah->id }}" tabindex="-1"
@@ -196,6 +237,18 @@
                             <label>Scan Ijazah (PDF/JPG/PNG)</label>
                             <input type="file" name="file_ijazah" class="form-control-file"
                                 accept=".pdf,.jpg,.jpeg,.png">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Status Verifikasi</label>
+                            <select name="status_verifikasi" class="form-control">
+                                <option value="0">
+                                    Belum
+                                    Diverifikasi</option>
+                                <option value="1">
+                                    Sudah
+                                    Diverifikasi</option>
+                            </select>
                         </div>
 
                         <div class="form-group">

@@ -34,6 +34,10 @@
 
     <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+    <!-- PDF.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- Custom CSS -->
     @stack('css')
@@ -142,7 +146,7 @@
                         <img src="{{ asset('images/person.png') }}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">name</a>
+                        <a href="#" class="d-block">{{ auth()->user()->name }}</a>
                     </div>
                 </div>
 
@@ -177,8 +181,15 @@
                         <li class="nav-item">
                             <a href="{{ route('ijazah.index') }}"
                                 class="nav-link {{ request()->routeIs('ijazah.*') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-layer-group"></i>
+                                <i class="nav-icon fas fa-file"></i>
                                 <p>Data Ijazah</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('program-studi.index') }}"
+                                class="nav-link {{ request()->routeIs('program-studi.*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-university"></i>
+                                <p>Program Studi</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -241,14 +252,14 @@
         <!-- /.content-wrapper -->
 
         <!-- Main Footer -->
-        <footer class="main-footer">
+        {{-- <footer class="main-footer">
             <strong>Copyright &copy; {{ date('Y') }} <a
                     href="#">{{ config('app.name', 'Laravel') }}</a>.</strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">
                 <b>Version</b> 1.0.0
             </div>
-        </footer>
+        </footer> --}}
     </div>
     <!-- ./wrapper -->
 

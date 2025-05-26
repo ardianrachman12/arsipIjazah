@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\StudentExport;
 use App\Models\ProgramStudi;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StudentController extends Controller
 {
@@ -61,6 +63,8 @@ class StudentController extends Controller
             'nama_orang_tua' => 'nullable',
             'no_telepon' => 'nullable|max:15',
             'foto' => 'nullable|image|max:2048',
+            'angkatan' => 'nullable|integer',
+            'program_studi_id' => 'nullable|exists:program_studis,id',
         ]);
 
         if ($request->hasFile('foto')) {
@@ -87,5 +91,10 @@ class StudentController extends Controller
         $student->delete();
 
         return redirect()->back()->with('success', 'Data siswa berhasil dihapus!');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new StudentExport, 'student.xlsx');
     }
 }

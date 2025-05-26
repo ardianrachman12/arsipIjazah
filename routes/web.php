@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IjazahController;
+use App\Http\Controllers\ProgramStudiController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -37,6 +38,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/store', [StudentController::class, 'store'])->name('students.store');
         Route::put('/update/{id}', [StudentController::class, 'update'])->name('students.update');
         Route::delete('/delete/{id}', [StudentController::class, 'destroy'])->name('students.destroy');
+        Route::get('/export/excel', [StudentController::class, 'exportExcel'])->name('students.export.excel');
     });
 
     Route::prefix('ijazah')->group(function () {
@@ -44,6 +46,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/store', [IjazahController::class, 'store'])->name('ijazah.store');
         Route::put('/update/{id}', [IjazahController::class, 'update'])->name('ijazah.update');
         Route::delete('/delete/{id}', [IjazahController::class, 'destroy'])->name('ijazah.destroy');
+        Route::get('/export/excel', [IjazahController::class, 'exportExcel'])->name('ijazah.export.excel');
     });
 
     Route::prefix('users')->group(function () {
@@ -51,5 +54,12 @@ Route::middleware('auth')->group(function () {
         Route::post('/store', [UserController::class, 'store'])->name('users.store');
         Route::put('/update/{id}', [UserController::class, 'update'])->name('users.update');
         Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+    });
+
+    Route::prefix('program-studi')->group(function () {
+        Route::get('/', [ProgramStudiController::class, 'index'])->name('program-studi.index');
+        Route::post('/store', [ProgramStudiController::class, 'store'])->name('program-studi.store');
+        Route::put('/update/{id}', [ProgramStudiController::class, 'update'])->name('program-studi.update');
+        Route::delete('/delete/{id}', [ProgramStudiController::class, 'destroy'])->name('program-studi.destroy');
     });
 });

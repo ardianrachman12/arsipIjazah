@@ -1,40 +1,40 @@
 @extends('layout.app')
-@section('title', 'User')
+@section('title', 'Program Studi')
 @section('content')
     <div class="container-fluid">
         <div class="card">
             <div class="p-4 d-flex justify-content-between align-items-center">
-                <h3 class="card-title">Daftar User</h3>
-                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#createUserModal">+ Tambah
-                    User</button>
+                <h3 class="card-title">Daftar Program Studi</h3>
+                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#createProdiModal">+ Tambah
+                    Program Studi</button>
             </div>
             <div class="card-body overflow-auto">
                 <table id="userTable" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Nama</th>
-                            <th>Email</th>
-                            <th>Role</th>
+                            <th>Nama Program Studi</th>
+                            <th>Kode</th>
+                            <th>Total Siswa</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($users as $index => $user)
+                        @foreach ($programStudi as $index => $prodi)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->role }}</td>
+                                <td>{{ $prodi->name }}</td>
+                                <td>{{ $prodi->kode_program_studi }}</td>
+                                <td>{{ $prodi->students->count()  }}</td>
                                 <td>
                                     <button class="btn btn-warning btn-sm" data-toggle="modal"
-                                        data-target="#editUserModal{{ $user->id }}">Edit</button>
-                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST"
-                                        class="d-inline" id="deleteForm{{ $user->id }}">
+                                        data-target="#editUserModal{{ $prodi->id }}">Edit</button>
+                                    <form action="{{ route('program-studi.destroy', $prodi->id) }}" method="POST"
+                                        class="d-inline" id="deleteForm{{ $prodi->id }}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="button" class="btn btn-danger btn-sm"
-                                            onclick="confirmDelete({{ $user->id }})">Hapus</button>
+                                            onclick="confirmDelete({{ $prodi->id }})">Hapus</button>
                                     </form>
                                     <script>
                                         function confirmDelete(userId) {
@@ -55,47 +55,40 @@
                                         }
                                     </script>
                                     <!-- Edit Modal -->
-                                    <div class="modal fade" id="editUserModal{{ $user->id }}" tabindex="-1"
+                                    <div class="modal fade" id="editUserModal{{ $prodi->id }}" tabindex="-1"
                                         role="dialog">
                                         <div class="modal-dialog" role="document">
-                                            <form action="{{ route('users.update', $user->id) }}" method="POST">
+                                            <form action="{{ route('program-studi.update', $prodi->id) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title">Edit User</h5>
+                                                        <h5 class="modal-title">Edit Program Studi</h5>
                                                         <button type="button" class="close"
                                                             data-dismiss="modal">&times;</button>
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="form-group">
-                                                            <label>Nama</label>
+                                                            <label>Nama Program Studi</label>
                                                             <input type="text" name="name" class="form-control"
-                                                                value="{{ $user->name }}" required>
+                                                                value="{{ $prodi->name }}" required>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label>Email</label>
-                                                            <input type="email" name="email" class="form-control"
-                                                                value="{{ $user->email }}" required>
+                                                            <label>Kode</label>
+                                                            <input type="text" name="kode_program_studi"
+                                                                class="form-control"
+                                                                value="{{ $prodi->kode_program_studi }}" required>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label>Role</label>
-                                                            <select name="role" class="form-control">
-                                                                <option value="admin"
-                                                                    {{ $user->role == 'admin' ? 'selected' : '' }}>Admin
-                                                                </option>
-                                                                <option value="user"
-                                                                    {{ $user->role == 'user' ? 'selected' : '' }}>User
-                                                                </option>
-                                                            </select>
+                                                            <label>Deskripsi</label>
+                                                            <textarea name="deskripsi" class="form-control">{{ $prodi->deskripsi }}</textarea>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-primary">Simpan</button>
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Tutup</button>
                                                         </div>
                                                     </div>
-                                                    <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-primary">Simpan</button>
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">Tutup</button>
-                                                    </div>
-                                                </div>
                                             </form>
                                         </div>
                                     </div>
@@ -110,34 +103,27 @@
     </div>
 
     <!-- Create Modal -->
-    <div class="modal fade" id="createUserModal" tabindex="-1" role="dialog">
+    <div class="modal fade" id="createProdiModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
-            <form action="/users/store" method="POST">
+            <form action="/program-studi/store" method="POST">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Tambah User</h5>
+                        <h5 class="modal-title">Tambah Program Studi</h5>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label>Nama</label>
+                            <label>Nama Program Studi</label>
                             <input type="text" name="name" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" name="email" class="form-control" required>
+                            <label>Kode Program Studi</label>
+                            <input type="text" name="kode_program_studi" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label>Role</label>
-                            <select name="role" class="form-control">
-                                <option value="admin">Admin</option>
-                                <option value="user">User</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" name="password" class="form-control" required>
+                            <label>Deskripsi</label>
+                            <textarea name="deskripsi" class="form-control"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
