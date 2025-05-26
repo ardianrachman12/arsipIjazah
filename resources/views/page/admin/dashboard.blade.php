@@ -21,7 +21,7 @@
                 <span class="info-box-icon bg-primary"><i class="far fa-user"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">Users</span>
+                    <span class="info-box-text">Pengguna</span>
                     <span class="info-box-number">{{ $user }}</span>
                 </div>
                 <!-- /.info-box-content -->
@@ -140,7 +140,7 @@
             data: {
                 labels: @json($jurusan),
                 datasets: [{
-                    label: 'Jumlah Siswa',
+                    label: 'Jumlah Alumni',
                     data: @json($jumlahJurusan),
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.6)',

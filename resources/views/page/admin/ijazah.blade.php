@@ -19,7 +19,7 @@
                             <th>Nama</th>
                             <th>Nomor Ijazah</th>
                             <th>Nomor Seri</th>
-                            <th>Program Studi</th>
+                            <th>Jurusan</th>
                             <th>Verifikasi</th>
                             <th>File</th>
                             <th>Tanggal Terbit</th>
