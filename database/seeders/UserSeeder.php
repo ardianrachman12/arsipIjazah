@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
     {
         User::create([
             'name' => 'Administrator',
+            'id_pengguna' => '29001',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('password123'),
             'role' => 'admin'
@@ -44,6 +45,7 @@ class UserSeeder extends Seeder
 
         $this->command->info('User admin dan contoh user lainnya berhasil dibuat!');
         $this->command->warn('Email: admin@arsipijazah.com');
+        $this->command->warn('id pengguna: 29001');
         $this->command->warn('Password: password123');
     }
 }

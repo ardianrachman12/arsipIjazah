@@ -14,17 +14,26 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'email' => 'required|email',
+            'email' => 'required',
             'password' => 'required'
         ]);
 
-        if (auth()->attempt($credentials)) {
+        $loginValue = $request->input('email');
+
+        // Cek login dengan email
+        if (auth()->attempt(['email' => $loginValue, 'password' => $request->password])) {
+            $request->session()->regenerate();
+            return redirect()->intended('/dashboard');
+        }
+
+        // Cek login dengan id_pengguna (pakai input email)
+        if (auth()->attempt(['id_pengguna' => $loginValue, 'password' => $request->password])) {
             $request->session()->regenerate();
             return redirect()->intended('/dashboard');
         }
 
         return back()->withErrors([
-            'email' => 'Maaf, email atau password salah.',
+            'email' => 'Maaf, kredensial yang dimasukkan salah.',
         ]);
     }
 

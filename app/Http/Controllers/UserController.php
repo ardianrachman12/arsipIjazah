@@ -17,13 +17,17 @@ class UserController extends Controller
     public function store(Request $request){
         $validatedData = $request->validate([
             'name' => 'required',
+            'id_pengguna' => 'required|unique:users,id_pengguna',
             'email' => 'required|email|unique:users',
-            'role' => 'required|in:user,admin',
+            // 'role' => 'required|in:user,admin',
             'password' => 'required|min:8',
         ]);
+
+        // dd($validatedData);
         if (!$validatedData) {
             return redirect()->back()->withErrors($validatedData)->withInput();
         }
+        $validatedData['password'] = bcrypt($validatedData['password']);
         $user = User::create($validatedData);
         return redirect('/users')->with('success', 'User created successfully');
     }
@@ -33,10 +37,13 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $validatedData = $request->validate([
             'name' => 'required',
+            'id_pengguna' => 'required|unique:users,id_pengguna,' . $user->id,
             'email' => 'required|email|unique:users,email,' . $user->id,
-            'role' => 'required',
+            // 'role' => 'required',
             // 'password' => 'nullable|min:8',
         ]);
+
+        // dd($validatedData);
 
         // if ($request->filled('password')) {
         //     $validatedData['password'] = bcrypt($validatedData['password']);

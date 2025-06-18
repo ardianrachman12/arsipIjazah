@@ -13,6 +13,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
+                            <th>ID Pengguna</th>
                             <th>Nama</th>
                             <th>Email</th>
                             {{-- <th>Role</th> --}}
@@ -24,6 +25,7 @@
                         @foreach ($users as $index => $user)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
+                                <td>{{ $user->id_pengguna }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 {{-- <td>{{ $user->role }}</td> --}}
@@ -76,6 +78,11 @@
                                                                 value="{{ $user->name }}" required>
                                                         </div>
                                                         <div class="form-group">
+                                                            <label>ID Pengguna</label>
+                                                            <input type="number" name="id_pengguna" class="form-control"
+                                                                value="{{ $user->id_pengguna }}" required>
+                                                        </div>
+                                                        <div class="form-group">
                                                             <label>Email</label>
                                                             <input type="email" name="email" class="form-control"
                                                                 value="{{ $user->email }}" required>
@@ -125,6 +132,10 @@
                         <div class="form-group">
                             <label>Nama</label>
                             <input type="text" name="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>ID Pengguna</label>
+                            <input type="number" name="id_pengguna" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label>Email</label>
