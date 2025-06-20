@@ -15,7 +15,7 @@ class StudentController extends Controller
     public function index()
     {
         $prodi = ProgramStudi::all();
-        $students = Student::all();
+        $students = Student::latest()->get();
         return view('page.admin.student', [
             'students' => $students,
             'prodi' => $prodi
@@ -25,20 +25,19 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nisn' => 'required|unique:students,nisn|max:10',
-            'nis' => 'nullable|unique:students,nis|max:10',
+            'nisn' => 'required|unique:students,nisn|max:15|min:12',
+            'nis' => 'nullable|unique:students,nis|max:15|min:12',
             'nama_lengkap' => 'required',
             'jenis_kelamin' => 'required|in:L,P',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required',
-            'nama_orang_tua' => 'nullable',
-            'no_telepon' => 'nullable|max:15',
-            'foto' => 'nullable|image|max:2048',
-            'angkatan' => 'nullable|integer',
-            'program_studi_id' => 'nullable|exists:program_studis,id',
+            'nama_orang_tua' => 'required',
+            'no_telepon' => ['required', 'max:15', 'min:8', 'regex:/^(08|628)\d+$/'],
+            'foto' => 'required|image|max:2048',
+            'angkatan' => 'required|integer|max:' . date('Y'),
+            'program_studi_id' => 'required|exists:program_studis,id',
         ]);
-
         if ($request->hasFile('foto')) {
             $validated['foto'] = 'uploads/' . time() . '.' . $request->file('foto')->getClientOriginalExtension();
             $request->file('foto')->move(public_path('uploads'), $validated['foto']);
@@ -53,18 +52,20 @@ class StudentController extends Controller
     {
         $student = Student::findOrFail($id);
         $validated = $request->validate([
-            'nisn' => 'required|max:10|unique:students,nisn,' . $student->id . 'id',
-            'nis' => 'required|max:10|unique:students,nis,' . $student->id . 'id',
+            'nisn' => 'required|max:15|min:12|unique:students,nisn,' . $student->id . 'id',
+            'nis' => 'required|max:15|min:12|unique:students,nis,' . $student->id . 'id',
             'nama_lengkap' => 'required',
             'jenis_kelamin' => 'required|in:L,P',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required',
-            'nama_orang_tua' => 'nullable',
-            'no_telepon' => 'nullable|max:15',
+            'nama_orang_tua' => 'required',
+            'no_telepon' => ['required', 'max:15', 'min:8', 'regex:/^(08|628)\d+$/'],
             'foto' => 'nullable|image|max:2048',
-            'angkatan' => 'nullable|integer',
-            'program_studi_id' => 'nullable|exists:program_studis,id',
+            'angkatan' => 'required|integer|max:' . date('Y'),
+            'program_studi_id' => 'required|exists:program_studis,id',
+        ], [
+            'no_telepon.regex' => 'Nomor telepon harus diawali dengan 08 atau 628 dan diikuti angka.',
         ]);
 
         if ($request->hasFile('foto')) {

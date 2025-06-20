@@ -118,7 +118,7 @@
                                                         <div class="form-group">
                                                             <label>Nomor Seri</label>
                                                             <input type="text" name="nomor_seri" class="form-control"
-                                                                value="{{ $ijazah->nomor_seri }}">
+                                                                value="{{ $ijazah->nomor_seri }}" required>
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Jurusan</label>
@@ -219,7 +219,7 @@
 
                         <div class="form-group">
                             <label>Nomor Seri</label>
-                            <input type="text" name="nomor_seri" class="form-control">
+                            <input type="text" name="nomor_seri" class="form-control" required>
                         </div>
 
                         <div class="form-group">
@@ -236,7 +236,7 @@
                         <div class="form-group">
                             <label>Scan Ijazah (PDF/JPG/PNG)</label>
                             <input type="file" name="file_ijazah" class="form-control-file"
-                                accept=".pdf,.jpg,.jpeg,.png">
+                                accept=".pdf,.jpg,.jpeg,.png" required>
                         </div>
 
                         <div class="form-group">

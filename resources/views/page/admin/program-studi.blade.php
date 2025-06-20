@@ -16,6 +16,7 @@
                             <th>Nama Jurusan</th>
                             <th>Kode</th>
                             <th>Total Siswa</th>
+                            <th>Deskripsi</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -26,9 +27,10 @@
                                 <td>{{ $prodi->name }}</td>
                                 <td>{{ $prodi->kode_program_studi }}</td>
                                 <td>{{ $prodi->students->count()  }}</td>
+                                <td>{{ $prodi->deskripsi}}</td>
                                 <td>
                                     <button class="btn btn-warning btn-sm" data-toggle="modal"
-                                        data-target="#editUserModal{{ $prodi->id }}">Edit</button>
+                                        data-target="#editUserModal{{ $prodi->id }}" style="margin-bottom: 2px;">Edit</button>
                                     <form action="{{ route('program-studi.destroy', $prodi->id) }}" method="POST"
                                         class="d-inline" id="deleteForm{{ $prodi->id }}">
                                         @csrf

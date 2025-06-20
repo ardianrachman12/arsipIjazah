@@ -26,11 +26,11 @@ class IjazahController extends Controller
     {
         $request->validate([
             'student_id' => 'required|exists:students,id',
-            'nomor_ijazah' => 'required|string|max:255',
-            'nomor_seri' => 'nullable|string|max:255',
+            'nomor_ijazah' => 'required|max:255|min:12',
+            'nomor_seri' => 'required|max:255|min:12',
             'tahun_lulus' => 'required|integer',
             'nilai_rata_rata' => 'required|string|max:10',
-            'file_ijazah' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'file_ijazah' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
             'status_verifikasi' => 'required|boolean',
             'tanggal_terbit' => 'required|date',
         ]);
@@ -54,8 +54,8 @@ class IjazahController extends Controller
     {
         $request->validate([
             'student_id' => 'required|exists:students,id',
-            'nomor_ijazah' => 'required|string|max:255',
-            'nomor_seri' => 'nullable|string|max:255',
+            'nomor_ijazah' => 'required|max:255|min:12',
+            'nomor_seri' => 'required|max:255|min:12',
             'tahun_lulus' => 'required|integer',
             'nilai_rata_rata' => 'required|string|max:10',
             'file_ijazah' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',

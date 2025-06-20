@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('nomor_ijazah')->unique();
             $table->string('nomor_seri')->nullable();
             $table->year('tahun_lulus');
-            $table->string('nilai_rata_rata', 5);
+            $table->string('nilai_rata_rata');
             $table->string('file_ijazah')->nullable(); // path ke file scan ijazah
             $table->text('keterangan')->nullable();
             $table->boolean('status_verifikasi')->default(false);

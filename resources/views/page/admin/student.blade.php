@@ -83,7 +83,7 @@
                                                             <div class="form-group">
                                                                 <label>NIS</label>
                                                                 <input type="number" name="nis" class="form-control"
-                                                                    maxlength="10" value="{{ $student->nis }}">
+                                                                    maxlength="10" value="{{ $student->nis }}" required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Nama Lengkap</label>
@@ -121,7 +121,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="" style="width: 100%;">
-                                                            
+
                                                             <div class="form-group">
                                                                 <label>Tanggal Lahir</label>
                                                                 <input type="date" name="tanggal_lahir"
@@ -137,22 +137,22 @@
                                                                 <label>Nama Orang Tua</label>
                                                                 <input type="text" name="nama_orang_tua"
                                                                     class="form-control"
-                                                                    value="{{ $student->nama_orang_tua }}">
+                                                                    value="{{ $student->nama_orang_tua }}" required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>No Telepon</label>
-                                                                <input type="text" name="no_telepon" class="form-control"
-                                                                    maxlength="15" value="{{ $student->no_telepon }}">
+                                                                <input type="number" name="no_telepon" class="form-control"
+                                                                    maxlength="15" value="{{ $student->no_telepon }}" required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Angkatan</label>
                                                                 <input type="number" name="angkatan" class="form-control"
-                                                                    maxlength="4" value="{{ $student->angkatan }}">
+                                                                    maxlength="4" value="{{ $student->angkatan }}" required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Foto</label>
                                                                 <input type="file" name="foto"
-                                                                    class="form-control-file">
+                                                                    class="form-control-file" accept=".jpg,.jpeg,.png">
 
                                                                 @if ($student->foto)
                                                                     <small class="form-text text-muted mt-2">
@@ -202,11 +202,13 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>NISN</label>
-                            <input type="number" name="nisn" class="form-control" maxlength="10" required>
+                            <input type="number" name="nisn" class="form-control" maxlength="15" minlength="12"
+                                required>
                         </div>
                         <div class="form-group">
                             <label>NIS</label>
-                            <input type="number" name="nis" class="form-control" maxlength="10">
+                            <input type="number" name="nis" class="form-control" maxlength="15" minlength="12"
+                                required>
                         </div>
                         <div class="form-group">
                             <label>Nama Lengkap</label>
@@ -228,6 +230,10 @@
                             </select>
                         </div>
                         <div class="form-group">
+                            <label>Angkatan</label>
+                            <input type="number" name="angkatan" class="form-control" maxlength="4" required>
+                        </div>
+                        <div class="form-group">
                             <label>Tempat Lahir</label>
                             <input type="text" name="tempat_lahir" class="form-control" required>
                         </div>
@@ -241,15 +247,16 @@
                         </div>
                         <div class="form-group">
                             <label>Nama Orang Tua</label>
-                            <input type="text" name="nama_orang_tua" class="form-control">
+                            <input type="text" name="nama_orang_tua" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label>No Telepon</label>
-                            <input type="text" name="no_telepon" class="form-control" maxlength="15">
+                            <input type="number" name="no_telepon" class="form-control" maxlength="15" minlength="8"
+                                required>
                         </div>
                         <div class="form-group">
                             <label>Foto</label>
-                            <input type="file" name="foto" class="form-control-file">
+                            <input type="file" name="foto" class="form-control-file" accept=".jpg,.jpeg,.png" required>
                         </div>
                     </div>
                     <div class="modal-footer">

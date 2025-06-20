@@ -42,6 +42,11 @@ class ProgramStudiController extends Controller
     public function destroy($id)
     {
         $programStudi = ProgramStudi::findOrFail($id);
+        
+        if($programStudi->students()->count() > 0) {
+            return redirect()->back()->with('error', 'Program studi tidak dapat dihapus karena masih memiliki siswa!');
+        }
+        
         $programStudi->delete();
         return redirect()->back()->with('success', 'Program studi berhasil dihapus!');
     }

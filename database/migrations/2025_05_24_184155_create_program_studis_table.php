@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('program_studis', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('kode_program_studi', 10)->unique();
+            $table->string('kode_program_studi')->unique();
             $table->longText('deskripsi')->nullable();
             $table->timestamps();
         });

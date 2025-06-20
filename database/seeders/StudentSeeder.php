@@ -26,6 +26,7 @@ class StudentSeeder extends Seeder
                 'alamat' => 'Jl. Merdeka No. 10, Jakarta',
                 'nama_orang_tua' => 'Budi Santoso',
                 'no_telepon' => '081234567890',
+                'angkatan' => 2021,
                 'program_studi_id' => 1,
             ],
             [
@@ -38,6 +39,7 @@ class StudentSeeder extends Seeder
                 'alamat' => 'Jl. Pahlawan No. 5, Bandung',
                 'nama_orang_tua' => 'Joko Widodo',
                 'no_telepon' => '082345678901',
+                'angkatan' => 2021,
                 'program_studi_id' => 1,
             ],
             [
@@ -50,6 +52,7 @@ class StudentSeeder extends Seeder
                 'alamat' => 'Jl. Diponegoro No. 15, Surabaya',
                 'nama_orang_tua' => 'Siti Aminah',
                 'no_telepon' => '083456789012',
+                'angkatan' => 2021,
                 'program_studi_id' => 1,
             ],
             [
@@ -62,6 +65,7 @@ class StudentSeeder extends Seeder
                 'alamat' => 'Jl. Malioboro No. 20, Yogyakarta',
                 'nama_orang_tua' => 'Agus Suparman',
                 'no_telepon' => '084567890123',
+                'angkatan' => 2021,
                 'program_studi_id' => 1,
             ],
             [
@@ -74,6 +78,7 @@ class StudentSeeder extends Seeder
                 'alamat' => 'Jl. Gatot Subroto No. 8, Medan',
                 'nama_orang_tua' => 'Rina Melati',
                 'no_telepon' => '085678901234',
+                'angkatan' => 2021,
                 'program_studi_id' => 1,
             ],
             [
