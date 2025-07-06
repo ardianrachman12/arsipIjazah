@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="card-body overflow-auto">
-                <table id="userTable" class="table table-bordered table-striped">
+                <table id="tableIjazah" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -99,15 +99,18 @@
                                                     <div class="modal-body">
                                                         <div class="form-group">
                                                             <label>Siswa</label>
-                                                            <select name="student_id" class="tom-select" required>
+                                                            <select name="student_id" class="tom-select-ajax" required>
                                                                 <option value="">-- Pilih Alumni --</option>
-                                                                @foreach ($students as $student)
+                                                                <option value="{{$ijazah->student_id}}" selected>
+                                                                        {{ $ijazah->student->nama_lengkap }}
+                                                                        ({{ $ijazah->student->nisn }})</option>
+                                                                {{-- @foreach ($students as $student)
                                                                     <option value="{{ $student->id }}"
                                                                         {{ $ijazah->student_id == $student->id ? 'selected' : '' }}>
                                                                         {{ $student->nama_lengkap }}
                                                                         ({{ $student->nisn }})
                                                                     </option>
-                                                                @endforeach
+                                                                @endforeach --}}
                                                             </select>
                                                         </div>
                                                         <div class="form-group">
@@ -202,13 +205,13 @@
 
                         <div class="form-group">
                             <label>Alumni</label>
-                            <select name="student_id" class="tom-select" required>
+                            <select name="student_id" class="tom-select-ajax" required>
                                 <option value="">Pilih Alumni</option>
-                                @foreach ($students as $student)
+                                {{-- @foreach ($students as $student)
                                     <option value="{{ $student->id }}">{{ $student->nama_lengkap }}
                                         ({{ $student->nisn }})
                                     </option>
-                                @endforeach
+                                @endforeach --}}
                             </select>
                         </div>
 
@@ -273,24 +276,59 @@
 
 
     <script>
-        let table = new DataTable('#userTable', {
-            responsive: true,
-            autoWidth: false
-        });
-    </script>
-    <script>
-        $(document).on('shown.bs.modal', function() {
-            document.querySelectorAll('.tom-select').forEach(function(el) {
-                if (!el.classList.contains('ts-loaded')) {
-                    new TomSelect(el, {
-                        create: false,
-                        sortField: {
-                            field: "text",
-                            direction: "asc"
-                        }
-                    });
-                    el.classList.add('ts-loaded');
-                }
+        // Pastikan inisialisasi DataTables ada di sini, setelah semua library dimuat
+        $(document).ready(function() {
+            let table = new DataTable('#tableIjazah', {
+                responsive: true,
+                autoWidth: false
+            });
+
+            // Script TomSelect juga di sini atau di blok terpisah yang dipush
+            function initializeTomSelectAjax(el) {
+                new TomSelect(el, {
+                    create: false,
+                    // Opsi ini akan memicu fungsi 'load' segera setelah elemen select diinisialisasi
+                    // Ini akan mengisi dropdown dengan data awal tanpa perlu mengetik.
+                    preload: true,
+                    // Konfigurasi untuk memuat data via AJAX
+                    load: function(query, callback) {
+                        // Menggunakan encodeURIComponent untuk memastikan query aman dalam URL
+                        const url = '{{ route('students.get-all') }}?q=' + encodeURIComponent(query);
+
+                        fetch(url)
+                            .then(response => response.json())
+                            .then(json => {
+                                // Panggil callback dengan array 'items' dari respons JSON Anda
+                                callback(json.items);
+                            })
+                            .catch(() => {
+                                // Jika ada error (misalnya jaringan), panggil callback tanpa item
+                                callback();
+                            });
+                    },
+                    // 'id' dari objek JSON akan menjadi nilai (value) dari opsi
+                    valueField: 'id',
+                    // 'text' dari objek JSON akan menjadi teks yang ditampilkan di opsi
+                    labelField: 'text',
+                    // TomSelect akan mencari di field 'text' (yang kita buat dari nama_lengkap + nisn)
+                    searchField: ['text'],
+                    maxItems: 1, // Hanya boleh memilih satu item
+                    persist: false, // Jangan menyimpan opsi yang tidak ada dalam daftar yang dimuat
+                });
+                // Tambahkan class penanda agar tidak diinisialisasi ulang
+                el.classList.add('ts-loaded');
+            }
+
+
+            // Event listener untuk saat modal Bootstrap ditampilkan
+            $(document).on('shown.bs.modal', function() {
+                // Iterasi semua elemen <select> dengan class 'tom-select-ajax'
+                document.querySelectorAll('.tom-select-ajax').forEach(function(el) {
+                    // Hanya inisialisasi jika elemen tersebut belum diinisialisasi sebelumnya
+                    if (!el.classList.contains('ts-loaded')) {
+                        initializeTomSelectAjax(el);
+                    }
+                });
             });
         });
     </script>

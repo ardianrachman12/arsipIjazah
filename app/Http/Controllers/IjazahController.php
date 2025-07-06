@@ -14,11 +14,11 @@ class IjazahController extends Controller
     public function index()
     {
         $ijazahs = Ijazah::with(['student', 'student.programstudi'])->get();
-        $students = Student::all();
+        // $students = Student::all();
         // dd($ijazahs);
         return view('page.admin.ijazah', [
             'ijazahs' => $ijazahs,
-            'students' => $students
+            // 'students' => $students
         ]);
     }
 
@@ -101,5 +101,32 @@ class IjazahController extends Controller
     public function exportExcel()
     {
         return Excel::download(new IjazahExport, 'ijazah.xlsx');
+    }
+
+    public function getDataAllStudent(Request $request)
+    {
+        $search = $request->query('q'); // 'q' adalah parameter default pencarian TomSelect
+
+        $students = Student::query()
+            ->when($search, function ($query, $search) {
+                // Cari berdasarkan nama_lengkap atau nisn
+                $query->where('nama_lengkap', 'like', '%' . $search . '%')
+                    ->orWhere('nisn', 'like', '%' . $search . '%');
+            })
+            ->select('id', 'nama_lengkap', 'nisn') // Hanya ambil kolom yang dibutuhkan
+            ->limit(50) // Batasi jumlah hasil untuk performa, bisa disesuaikan
+            ->get();
+
+        // Format data agar sesuai dengan yang diharapkan TomSelect
+        $formattedStudents = $students->map(function ($student) {
+            return [
+                'id' => $student->id,
+                'text' => $student->nama_lengkap . ' (' . $student->nisn . ')', // Teks yang akan ditampilkan
+            ];
+        });
+
+        return response()->json([
+            'items' => $formattedStudents
+        ]);
     }
 }

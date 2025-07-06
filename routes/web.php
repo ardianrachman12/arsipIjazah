@@ -63,3 +63,5 @@ Route::middleware('auth')->group(function () {
         Route::delete('/delete/{id}', [ProgramStudiController::class, 'destroy'])->name('program-studi.destroy');
     });
 });
+
+Route::get('/get-all-students', [IjazahController::class, 'getDataAllStudent'])->name('students.get-all');
